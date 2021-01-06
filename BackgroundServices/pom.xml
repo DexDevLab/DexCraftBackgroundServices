@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.dex.dexcraft</groupId>
   <artifactId>BackgroundServices</artifactId>
-  <version>7.0.0-210105-346</version>
+  <version>7.0.1-210106-347</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>

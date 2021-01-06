@@ -339,7 +339,7 @@ public class FtpUtils
     }
     catch (IOException ex)
     {
-      alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.fileExists(String)");
+      logger.log("***ERRO***", "FTP: EXCEÇÃO em FtpUtils.fileExists(File)");
     }
     return false;
   }
@@ -373,7 +373,14 @@ public class FtpUtils
       boolean upload = ftp.storeFile(check.toString(), inputStream);
       if (upload)
       {
-        ftp.deleteFile(checkOld.toString());
+        try
+        {
+          ftp.deleteFile(checkOld.toString());
+        }
+        catch (IOException ex)
+        {
+          logger.log("***ERRO***", "FTP: EXCEÇÃO em FtpUtils.uploadFile(String, String)");
+        }
         logger.log("INFO", "FTP: Arquivo " + localFile.getName() + " enviado com sucesso para " + getWorkingDir() + "/" + remoteDestPath + ".");
         return true;
       }

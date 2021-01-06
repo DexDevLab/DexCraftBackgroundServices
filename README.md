@@ -1,5 +1,6 @@
 
 
+
 # License
 This program and its files, its codes, implementation and functions are under the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.
 
@@ -120,3 +121,10 @@ See the class ScriptFileReader for details.
  * Minor bugfixes.
 ## v6.1.3-200612-191
  * Minor bugfixes.
+## v6.1.3-200612-191
+ * Minor bugfixes.
+## v7.0.0-210105-346
+* Background Services refactoring and implementation.
+## v7.0.1-210106-347
+* DexCraft Commons:
+	* Added ignored status to file verification and file deletion.
