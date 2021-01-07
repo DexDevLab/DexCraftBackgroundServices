@@ -75,6 +75,7 @@ public class BackupService
       }
       logAndChangeTooltip("Verificando regras de sincronização...");
       FtpDTO.parseFTPAssets();
+      SessionDTO.parseSessionAssets();
       String jsonString = FileUtils.readFileToString(runtimeFile, "UTF-8");
       JSONObject obj = new JSONObject (jsonString);
       JSONObject parentObj = obj.getJSONObject("profiles");

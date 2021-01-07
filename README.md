@@ -128,3 +128,12 @@ See the class ScriptFileReader for details.
 ## v7.0.1-210106-347
 * DexCraft Commons:
 	* Added ignored status to file verification and file deletion.
+## v7.0.2-210106-349
+* DexCraft Commons:
+	* Close.java:
+		* Changed exclusion method of cache files
+	* Connections.java:
+		* Exception of Connections.getPing() ignored
+		* Added different result in case of connection failure
+	* ErrorAlerts.java:
+		* Changed behaviour of the Exception Handler Alert to perform program closing properly

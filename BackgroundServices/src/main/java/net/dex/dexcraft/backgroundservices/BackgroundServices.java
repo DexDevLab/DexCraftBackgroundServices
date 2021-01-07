@@ -27,7 +27,7 @@ import net.dex.dexcraft.backgroundservices.services.WatchdogService;
 /**
 * @author Dex
 * @since 04/04/2019
-* @version v7.0.1-210106-347
+* @version v7.0.2-210106-349
 *
 * Application for backup and syncronization by time period.
 */

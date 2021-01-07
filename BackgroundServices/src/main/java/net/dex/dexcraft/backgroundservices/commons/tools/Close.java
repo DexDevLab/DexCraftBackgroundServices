@@ -1,10 +1,10 @@
 package net.dex.dexcraft.backgroundservices.commons.tools;
 
 
-import java.io.File;
 import javafx.application.Platform;
 import static net.dex.dexcraft.backgroundservices.commons.Commons.logger;
 import net.dex.dexcraft.backgroundservices.commons.dto.SessionDTO;
+import org.apache.commons.io.FileUtils;
 
 /**
  * Class for closing program properly,
@@ -12,8 +12,6 @@ import net.dex.dexcraft.backgroundservices.commons.dto.SessionDTO;
  */
 public class Close
 {
-
-  private static Clean clean = new Clean();
 
   /**
    * Closes DexCraft Launcher Init. Keeps the instance
@@ -23,8 +21,8 @@ public class Close
   public static void init()
   {
     logger.log("INFO", "Fechando DexCraft Launcher Init...");
-    clean.excluir(DexCraftFiles.adminCheck, false);
-    clean.excluir(DexCraftFiles.tempFolder, true);
+    FileUtils.deleteQuietly(DexCraftFiles.adminCheck);
+    FileUtils.deleteQuietly(DexCraftFiles.tempFolder);
     SessionDTO.setDexCraftLauncherClientInstance(false);
     SessionDTO.setDexCraftBackgroundServicesInstance(false);
     Platform.exit();
@@ -36,9 +34,9 @@ public class Close
   public static void client()
   {
     logger.log("INFO", "Fechando DexCraft Launcher Client...");
-    clean.excluir(DexCraftFiles.adminCheck, false);
-    clean.excluir(DexCraftFiles.tempFolder, true);
-    clean.excluir(DexCraftFiles.playerLock, false);
+    FileUtils.deleteQuietly(DexCraftFiles.adminCheck);
+    FileUtils.deleteQuietly(DexCraftFiles.tempFolder);
+    FileUtils.deleteQuietly(DexCraftFiles.playerLock);
     SessionDTO.setDexCraftLauncherInitInstance(true);
     SessionDTO.setDexCraftLauncherClientInstance(true);
     SessionDTO.setDexCraftBackgroundServicesInstance(false);
@@ -51,9 +49,9 @@ public class Close
   public static void backgroundServices()
   {
     logger.log("INFO", "Fechando DexCraft Background Services...");
-    clean.excluir(DexCraftFiles.adminCheck, false);
-    clean.excluir(DexCraftFiles.tempFolder, true);
-    clean.excluir(DexCraftFiles.logLock, false);
+    FileUtils.deleteQuietly(DexCraftFiles.adminCheck);
+    FileUtils.deleteQuietly(DexCraftFiles.tempFolder);
+    FileUtils.deleteQuietly(DexCraftFiles.logLock);
     SessionDTO.setDexCraftLauncherInitInstance(false);
     SessionDTO.setDexCraftLauncherClientInstance(false);
     SessionDTO.setDexCraftBackgroundServicesInstance(false);
@@ -67,13 +65,14 @@ public class Close
   public static void withErrors()
   {
     logger.log("INFO", "PROGRAMA FECHADO COM ERROS!");
-    clean.excluir(DexCraftFiles.adminCheck, false);
-    clean.excluir(DexCraftFiles.tempFolder, true);
-    clean.excluir(DexCraftFiles.logLock, false);
+    FileUtils.deleteQuietly(DexCraftFiles.adminCheck);
+    FileUtils.deleteQuietly(DexCraftFiles.tempFolder);
+    FileUtils.deleteQuietly(DexCraftFiles.logLock);
     SessionDTO.setDexCraftLauncherInitInstance(false);
     SessionDTO.setDexCraftLauncherClientInstance(false);
     SessionDTO.setDexCraftBackgroundServicesInstance(false);
     SessionDTO.setSessionPassword("null");
+    System.exit(0);
   }
 
   /**
@@ -82,37 +81,13 @@ public class Close
   public static void quit()
   {
     logger.log("INFO", "Fechando...");
-    clean.excluir(DexCraftFiles.adminCheck, false);
-    clean.excluir(DexCraftFiles.tempFolder, true);
-    clean.excluir(DexCraftFiles.logLock, false);
+    FileUtils.deleteQuietly(DexCraftFiles.adminCheck);
+    FileUtils.deleteQuietly(DexCraftFiles.tempFolder);
+    FileUtils.deleteQuietly(DexCraftFiles.logLock);
     SessionDTO.setDexCraftLauncherInitInstance(false);
     SessionDTO.setDexCraftLauncherClientInstance(false);
     SessionDTO.setDexCraftBackgroundServicesInstance(false);
     SessionDTO.setSessionPassword("null");
-  }
-
-
-  /**
-   * Since its common the FileIO Class provide an
-   * exception which closes the program,<br>
-   * in order to do not prevent program running
-   * in absence of some file just for verification
-   * the method was overwriten.
-   */
-  private static class Clean extends FileIO
-  {
-    @Override
-    public void excluir(File source, boolean includeParentDir)
-    {
-      if (source.exists())
-      {
-        super.excluir(source, includeParentDir);
-      }
-      else
-      {
-        logger.log("INFO", "SOURCE \"" + source.toString() + "\" não foi encontrado.");
-      }
-    }
   }
 
 }
