@@ -137,3 +137,34 @@ See the class ScriptFileReader for details.
 		* Added different result in case of connection failure
 	* ErrorAlerts.java:
 		* Changed behaviour of the Exception Handler Alert to perform program closing properly
+## v7.1.0-210109-350
+* DexCraft Commons:
+	* SystemRequirements.java:
+		* Added option to disable connection tests in case of constant error (since I couldn't solve the exception some players are strangely experiencing)
+	* JsonDAO.java:
+		* Fixed bug where exceptions won't cause DCBS closing after confirming window
+	* SessionDTO.java:
+		* Added parser, getter and setter for the option to disable connection tests
+		* Removed "Force Resources Update" option (uneeded)
+	* Close.java:
+		* Added playerlock exclusion to normal program quit
+	* Connections.java:
+		* Download speed meter adjustments
+	* DexCraftFiles.java:
+		* Added soundpack variable
+	* ErrorAlerts:
+		* Removed extra logging to avoid bugging on window
+		* Removed button implementation on alert which was causing bug
+	* FileIO.java:
+		* Fixed bug where exceptions won't cause DCBS closing after confirming window
+	* FtpUtils.java:
+		* Fixed bug where exceptions won't cause DCBS closing after confirming window
+	* ZipUtils.java:
+		* Fixed bug where exceptions won't cause DCBS closing after confirming window
+* DexCraft Background Services:
+	* Fixed bug where exceptions won't cause DCBS closing after confirming window
+* DCBS' Services:
+	* BackupService.java:
+		* Added ftp disconnect to force disconnection from FTP server on Persistance Thread.
+	* PrepareLauncherService.java:
+			* Fixed bug where exceptions won't cause DCBS closing after confirming window

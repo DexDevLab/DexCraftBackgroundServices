@@ -263,6 +263,7 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.connect()");
+      Close.withErrors();
     }
   }
 
@@ -282,6 +283,7 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.connect()");
+      Close.withErrors();
     }
   }
 
@@ -298,6 +300,7 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.connect()");
+      Close.withErrors();
     }
   }
 
@@ -320,6 +323,7 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.checkFolder(String)");
+      Close.withErrors();
     }
   }
 
@@ -388,10 +392,12 @@ public class FtpUtils
     catch (FileNotFoundException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.uploadFile(String, String, String)");
+      Close.withErrors();
     }
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.uploadFile(String, String, String)");
+      Close.withErrors();
     }
     logger.log("***ERRO***", "FALHA CRÍTICA NO PROCESSO DE UPLOAD DO ARQUIVO " + localFilePath);
     alerts.tryAgain();
@@ -449,6 +455,7 @@ public class FtpUtils
       catch (InterruptedException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.uploadFileWithProgress(String, String)");
+        Close.withErrors();
       }
     }
     progress = 100;
@@ -482,6 +489,7 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO EM FtpUtils.downloadFile(String, File)");
+      Close.withErrors();
     }
     return false;
   }
@@ -538,6 +546,7 @@ public class FtpUtils
         catch (InterruptedException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FtpUtils.downloadFileWithProgress(String, File)");
+          Close.withErrors();
         }
       }
       progress = 100;
@@ -546,6 +555,7 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO EM FtpUtils.downloadFileWithProgress(String, File)");
+      Close.withErrors();
     }
   }
 

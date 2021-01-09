@@ -29,9 +29,9 @@ public class SessionDTO
   private static String sessionPassword;
   private static String lastServer;
   private static boolean offlineMode = false;
-  private static boolean forceResourcesUpdate = false;
   private static boolean disableDCBS = false;
   private static boolean backupSingleplayerMaps = true;
+  private static boolean disableConnectionTests = false;
 
 
    //*******************************************PARSERS*******************************//
@@ -136,15 +136,6 @@ public class SessionDTO
   }
 
   /**
-   * PARSE "Force Resources Update" option from JSON file.
-   * @param isSet the JSON read method.
-   */
-  private static void parseForceResourcesUpdate(boolean isSet)
-  {
-    forceResourcesUpdate = isSet;
-  }
-
-  /**
    * PARSE "Disable DexCraft Background Services" option from JSON file.
    * @param isDisabled the JSON output.
    */
@@ -160,6 +151,15 @@ public class SessionDTO
   private static void parseBackupSingleplayerMaps(boolean isEnabled)
   {
     backupSingleplayerMaps = isEnabled;
+  }
+
+  /**
+   * PARSE "Disable Connecton Tests" option from JSON file.
+   * @param isEnabled the JSON output.
+   */
+  private static void parseDisableConnectionTests(boolean isEnabled)
+  {
+    disableConnectionTests = isEnabled;
   }
 
   //*******************************************GETTERS*******************************//
@@ -267,15 +267,6 @@ public class SessionDTO
   }
 
   /**
-   * GET "Force Resources Updates" option, stored in DTO variable.
-   * @return the Force Resources Updates' status.
-   */
-  public static boolean isForceResourcesUpdateOn()
-  {
-    return forceResourcesUpdate;
-  }
-
-  /**
    * GET "Disable DexCraft Background Services" option, stored in DTO variable.
    * @return the Disable DCBS' status.
    */
@@ -291,6 +282,15 @@ public class SessionDTO
   public static boolean isBackupSingleplayerMapsEnabled()
   {
     return  backupSingleplayerMaps;
+  }
+
+  /**
+   * GET "Disable Connection Tests" option, stored in DTO variable.
+   * @return the option status.
+   */
+  public static boolean isConnectionTestDisabled()
+  {
+    return  disableConnectionTests;
   }
 
    //*******************************************SETTERS*******************************//
@@ -384,17 +384,6 @@ public class SessionDTO
   }
 
   /**
-   * SET the Resources Update option into the JSON file<br>
-   * and parse it to the DTO.
-   * @param isSet if the Force Resources Update option is enabled (true) or not (false)
-   */
-  public static void setForceResourcesUpdate(boolean isSet)
-  {
-    json.editValue(DexCraftFiles.launcherProperties, "SessionProperties", "ForceResourcesUpdate", Boolean.toString(isSet));
-    parseForceResourcesUpdate(isSet);
-  }
-
-  /**
    * SET the Disable DCBS status into the JSON file<br>
    * and parse it to the DTO.
    * @param isDisabled if the Background Services is disabled (true) or not (false)
@@ -415,6 +404,18 @@ public class SessionDTO
   {
     json.editValue(DexCraftFiles.launcherProperties, "SessionProperties", "BackupSingleplayerMaps", Boolean.toString(isEnabled));
     parseBackupSingleplayerMaps(isEnabled);
+  }
+
+  /**
+   * SET the enabled or disabled status of the<br>
+   * Disable Connection Tests option into the JSON file<br>
+   * and parse it to the DTO.
+   * @param isEnabled if that option is enabled (true) or not (false)
+   */
+  public static void setDisableConnectionTests(boolean isEnabled)
+  {
+    json.editValue(DexCraftFiles.launcherProperties, "SessionProperties", "DisableConnectionTests", Boolean.toString(isEnabled));
+    parseDisableConnectionTests(isEnabled);
   }
 
 
@@ -451,9 +452,9 @@ public class SessionDTO
       parseLastServer(json.readValue(DexCraftFiles.launcherProperties, "SessionProperties", "LastServerIndex"));
 
       parseOfflineModeStatus(json.readValue(DexCraftFiles.launcherProperties, "SessionProperties", "OfflineMode").equals("true"));
-      parseForceResourcesUpdate(json.readValue(DexCraftFiles.launcherProperties, "SessionProperties", "ForceResourcesUpdate").equals("true"));
       parseDisableDCBS(json.readValue(DexCraftFiles.launcherProperties, "SessionProperties", "DisableBackgroundServices").equals("true"));
       parseBackupSingleplayerMaps(json.readValue(DexCraftFiles.launcherProperties, "SessionProperties", "BackupSingleplayerMaps").equals("true"));
+      parseDisableConnectionTests(json.readValue(DexCraftFiles.launcherProperties, "SessionProperties", "DisableConnectionTests").equals("true"));
 
       System.out.println("Assets de sessão carregados.");
     }

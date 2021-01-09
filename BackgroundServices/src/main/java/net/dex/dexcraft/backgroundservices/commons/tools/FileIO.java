@@ -59,6 +59,7 @@ public class FileIO
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FileIO.copiar(File, File)");
+          Close.withErrors();
         }
       }
       else
@@ -79,6 +80,7 @@ public class FileIO
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FileIO.copiar(File, File)");
+          Close.withErrors();
         }
       }
       else
@@ -91,6 +93,7 @@ public class FileIO
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FileIO.copiar(File, File)");
+          Close.withErrors();
         }
       }
     }

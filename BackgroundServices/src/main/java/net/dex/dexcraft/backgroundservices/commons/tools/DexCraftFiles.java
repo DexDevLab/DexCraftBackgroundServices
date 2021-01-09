@@ -151,4 +151,8 @@ public class DexCraftFiles
   /** Folder containing all ftp temporary data. */
   public static File tempFTPFolder = new File(tempFolder + "/ftp");
 
+  //******************************************SoundPacks***********************************************//
+
+  public static File soundDCPXChocoboV2 = new File(launcherFolder + "/dcpx/.minecraft/resourcepacks/No Batidao do Chocobo (1.12.2-v2).zip");
+
 }

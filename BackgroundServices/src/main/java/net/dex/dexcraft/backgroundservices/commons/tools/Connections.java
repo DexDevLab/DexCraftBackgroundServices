@@ -76,7 +76,7 @@ public class Connections
    */
   public long getNominalUploadSpeed(String url, File testFile)
   {
-    setNominalUploadSpeed(getDownloadSpeed(url, testFile) / 3);
+    setNominalUploadSpeed(getDownloadSpeed(url, testFile) / 4);
     logger.log("INFO", "Upload Nominal: " + this.nominalUploadSpeed + "Mbps.");
     return this.nominalUploadSpeed;
   }
@@ -130,17 +130,21 @@ public class Connections
         }
         else
         {
-          setDownloadSpeed(430000 / timeSpent);
+          setDownloadSpeed(440000 / timeSpent);
         }
         EOF = -1;
       }
       catch (MalformedURLException ex)
       {
-        alerts.exceptionHandler(ex, "EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
+        setDownloadSpeed(3);
+        logger.log("***ERRO***","EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
+//        alerts.exceptionHandler(ex, "EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
       }
       catch (IOException ex)
       {
-        alerts.exceptionHandler(ex, "EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
+        setDownloadSpeed(3);
+        logger.log("***ERRO***","EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
+//        alerts.exceptionHandler(ex, "EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
       }
     });
     speedMeter.start();
@@ -154,6 +158,7 @@ public class Connections
       catch (InterruptedException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
+        Close.withErrors();
       }
     }
     logger.log("INFO", "Calculando a velocidade da internet....100% concluído.");

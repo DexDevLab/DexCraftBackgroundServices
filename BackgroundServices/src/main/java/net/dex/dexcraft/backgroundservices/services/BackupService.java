@@ -95,6 +95,7 @@ public class BackupService
            if ((!isBusy()) && (bkpDone))
            {
              closeRequested = true;
+             ftp.disconnect();
              Close.backgroundServices();
            }
            else
@@ -106,6 +107,7 @@ public class BackupService
         catch(InterruptedException   ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.backup(boolean)");
+          Close.withErrors();
         }
       });
       persistance.start();
@@ -137,6 +139,7 @@ public class BackupService
     catch (IOException | InterruptedException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.backup(boolean)");
+      Close.withErrors();
     }
   }
 
@@ -277,6 +280,7 @@ public class BackupService
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.checkRemoteSyncProps(boolean)");
+          Close.withErrors();
         }
       }
     }
@@ -292,6 +296,7 @@ public class BackupService
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.checkRemoteSyncProps(boolean)");
+          Close.withErrors();
         }
       }
     }
@@ -333,6 +338,7 @@ public class BackupService
         catch (InterruptedException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.performBackup(boolean)");
+          Close.withErrors();
         }
       }
       logAndChangeTooltip("Enviando backup... 100% concluído");
@@ -353,6 +359,7 @@ public class BackupService
         catch (InterruptedException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.performBackup(boolean)");
+          Close.withErrors();
         }
       }
       ftp.disconnect();
@@ -396,6 +403,7 @@ public class BackupService
       catch (InterruptedException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.startCountdown(int)");
+        Close.withErrors();
       }
     }
   }

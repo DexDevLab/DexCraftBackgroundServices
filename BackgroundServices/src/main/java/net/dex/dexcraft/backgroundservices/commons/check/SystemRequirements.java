@@ -37,12 +37,19 @@ public class SystemRequirements
                 + "(" + checkWindowsVersion() + checkSystemArch() + ", " + checkSystemRAMGB() + "GB RAM)");
       alerts.noReq();
     }
-    Connections con = new Connections();
-    long speed = con.getNominalUploadSpeed(SystemDTO.getSpeedTestFileURL(), DexCraftFiles.downloadTestFile);
-    SessionDTO.setNominalUploadSpeed(Long.toString(speed));
-    if( speed < uploadMinSpd)
+    if (!SessionDTO.isConnectionTestDisabled())
     {
-      alerts.noSpd();
+      Connections con = new Connections();
+      long speed = con.getNominalUploadSpeed(SystemDTO.getSpeedTestFileURL(), DexCraftFiles.downloadTestFile);
+      SessionDTO.setNominalUploadSpeed(Long.toString(speed));
+      if( speed < uploadMinSpd)
+      {
+        alerts.noSpd();
+        SessionDTO.setDisableDCBS(true);
+      }
+    }
+    else
+    {
       SessionDTO.setDisableDCBS(true);
     }
   }
@@ -154,3 +161,4 @@ public class SystemRequirements
   }
 
 }
+
