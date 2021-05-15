@@ -8,7 +8,6 @@ import static net.dex.dexcraft.backgroundservices.BackgroundServices.component;
 import static net.dex.dexcraft.backgroundservices.commons.Commons.alerts;
 import static net.dex.dexcraft.backgroundservices.commons.Commons.logger;
 import net.dex.dexcraft.backgroundservices.commons.dto.SessionDTO;
-import net.dex.dexcraft.backgroundservices.commons.tools.Close;
 import net.dex.dexcraft.backgroundservices.commons.tools.DexCraftFiles;
 import org.apache.commons.io.FileUtils;
 
@@ -55,7 +54,7 @@ public class WatchdogService
       {
         terminate(component + ".exe");
         alerts.exceptionHandler(ex, "EXCEÇÃO em WatchdogService.watch()");
-        Close.withErrors();
+//        Close.withErrors();
       }
     }
   }
@@ -74,7 +73,7 @@ public class WatchdogService
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em WatchdogService.terminate()");
-      Close.withErrors();
+//      Close.withErrors();
     }
   }
 

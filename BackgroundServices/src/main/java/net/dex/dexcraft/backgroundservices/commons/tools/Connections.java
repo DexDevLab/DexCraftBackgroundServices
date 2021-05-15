@@ -158,7 +158,7 @@ public class Connections
       catch (InterruptedException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO EM Connections.getDownloadSpeed(String, File)");
-        Close.withErrors();
+//        Close.withErrors();
       }
     }
     logger.log("INFO", "Calculando a velocidade da internet....100% concluído.");

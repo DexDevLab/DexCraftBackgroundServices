@@ -35,7 +35,7 @@ public class BackupService
   public static FtpUtils ftp = new FtpUtils();
   private static List<String> taskList = new ArrayList<>();
   public static String gameClient = "";
-  public static int SHIGINIMA_WAIT_SECS = 25;
+  public static int SHIGINIMA_WAIT_SECS = 50;
   public static File shigLauncher = new File(DexCraftFiles.runtimeFolder + "/" + BackgroundServices.component + ".exe");
   public static File shigLauncherOld = new File(DexCraftFiles.runtimeFolder + "/" + BackgroundServices.component + ".old");
   public static File runtimeFile = new File(DexCraftFiles.launcherFolder + "/" + BackgroundServices.component + "/.minecraft/launcher_profiles.json");
@@ -107,7 +107,8 @@ public class BackupService
         catch(InterruptedException   ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.backup(boolean)");
-          Close.withErrors();
+          ftp.disconnect();
+//          Close.withErrors();
         }
       });
       persistance.start();
@@ -139,7 +140,8 @@ public class BackupService
     catch (IOException | InterruptedException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.backup(boolean)");
-      Close.withErrors();
+      ftp.disconnect();
+//      Close.withErrors();
     }
   }
 
@@ -280,7 +282,8 @@ public class BackupService
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.checkRemoteSyncProps(boolean)");
-          Close.withErrors();
+          ftp.disconnect();
+//          Close.withErrors();
         }
       }
     }
@@ -296,7 +299,8 @@ public class BackupService
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.checkRemoteSyncProps(boolean)");
-          Close.withErrors();
+          ftp.disconnect();
+//          Close.withErrors();
         }
       }
     }
@@ -333,12 +337,13 @@ public class BackupService
         logAndChangeTooltip("Enviando backup... " + ftp.getTimeEstimatedMsg());
         try
         {
-          Thread.sleep(1000);
+          Thread.sleep(500);
         }
         catch (InterruptedException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.performBackup(boolean)");
-          Close.withErrors();
+          ftp.disconnect();
+//          Close.withErrors();
         }
       }
       logAndChangeTooltip("Enviando backup... 100% concluído");
@@ -354,13 +359,45 @@ public class BackupService
         logAndChangeTooltip("Enviando assets...");
         try
         {
-          Thread.sleep(1000);
+          Thread.sleep(500);
         }
         catch (InterruptedException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.performBackup(boolean)");
-          Close.withErrors();
+          ftp.disconnect();
+//          Close.withErrors();
         }
+      }
+      File currentLogFile = new File(logger.getLogFile().toString());
+      File logFileToUpload = new File (DexCraftFiles.tempFTPFolder + "/" + currentLogFile.getName());
+      FileIO fio = new FileIO();
+      fio.copiar(currentLogFile, logFileToUpload);
+      if (logFileToUpload.exists())
+      {
+        logger.log("INFO", "BACKUPSERVICE: Encontrado arquivo de log. Iniciando envio do arquivo...");
+        Thread uploadLogFile = new Thread(()->
+        {
+          ftp.uploadFileWithProgress(SessionDTO.getSessionUser(), logFileToUpload.toString());
+        });
+        uploadLogFile.start();
+        while (uploadLogFile.isAlive())
+        {
+          logAndChangeTooltip("Enviando assets...");
+          try
+          {
+            Thread.sleep(500);
+          }
+          catch (InterruptedException ex)
+          {
+            alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.performBackup(boolean)");
+            ftp.disconnect();
+  //          Close.withErrors();
+          }
+        }
+      }
+      else
+      {
+        logger.log("INFO", "BACKUPSERVICE: Arquivo de log não encontrado ou não pôde ser copiado.");
       }
       ftp.disconnect();
       logAndChangeTooltip("Enviando assets...concluído");
@@ -403,7 +440,8 @@ public class BackupService
       catch (InterruptedException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO em BackupService.startCountdown(int)");
-        Close.withErrors();
+        ftp.disconnect();
+//        Close.withErrors();
       }
     }
   }

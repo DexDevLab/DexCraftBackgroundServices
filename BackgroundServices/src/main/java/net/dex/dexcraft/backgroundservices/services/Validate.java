@@ -5,7 +5,6 @@ import static net.dex.dexcraft.backgroundservices.commons.Commons.alerts;
 import net.dex.dexcraft.backgroundservices.commons.check.AdminExecution;
 import net.dex.dexcraft.backgroundservices.commons.check.PreventSecondInstance;
 import net.dex.dexcraft.backgroundservices.commons.dto.SessionDTO;
-import net.dex.dexcraft.backgroundservices.commons.tools.DexCraftFiles;
 
 
 /**
@@ -36,14 +35,14 @@ public class Validate
     switch (instanceName)
     {
       case "Init":
-        if (DexCraftFiles.logLock.exists())
+        if (SessionDTO.getDexCraftLauncherInitStatus())
         {
-          SessionDTO.setDexCraftLauncherInitInstance(true);
           isInstanceInvalid = true;
         }
         else
         {
           isInstanceInvalid = false;
+          SessionDTO.setDexCraftLauncherInitInstance(true);
         }
         break;
       case "Client":

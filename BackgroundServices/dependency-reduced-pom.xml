@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.dex.dexcraft</groupId>
   <artifactId>BackgroundServices</artifactId>
-  <version>7.1.0-210109-350</version>
+  <version>7.3.0-210116-353</version>
   <build>
     <finalName>DexCraftBackgroundServices</finalName>
     <plugins>

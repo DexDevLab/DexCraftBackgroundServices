@@ -16,7 +16,6 @@ import net.dex.dexcraft.backgroundservices.commons.Commons;
 import net.dex.dexcraft.backgroundservices.commons.dto.SessionDTO;
 import net.dex.dexcraft.backgroundservices.commons.dto.SystemDTO;
 import net.dex.dexcraft.backgroundservices.commons.dto.UrlsDTO;
-import net.dex.dexcraft.backgroundservices.commons.tools.Close;
 import net.dex.dexcraft.backgroundservices.commons.tools.DexCraftFiles;
 import net.dex.dexcraft.backgroundservices.commons.tools.ErrorAlerts;
 import net.dex.dexcraft.backgroundservices.commons.tools.Logger;
@@ -28,7 +27,7 @@ import net.dex.dexcraft.backgroundservices.services.WatchdogService;
 /**
 * @author Dex
 * @since 04/04/2019
-* @version v7.1.0-210109-350
+* @version v7.3.0-210116-353
 *
 * Application for backup and syncronization by time period.
 */
@@ -103,7 +102,7 @@ public class BackgroundServices
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em logAndChangeTooltip(String)");
-      Close.withErrors();
+      // Close.withErrors();
     }
 
     logger.log("INFO", "Inicializando...");
@@ -126,13 +125,13 @@ public class BackgroundServices
           catch (AWTException e)
           {
             alerts.exceptionHandler(e, "EXCEÇÃO em BackgroundServices.start(Stage)");
-            Close.withErrors();
+            // Close.withErrors();
           }
         }
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO em BackgroundServices.start(Stage)");
-          Close.withErrors();
+          // Close.withErrors();
         }
       }
       else
@@ -204,7 +203,7 @@ public class BackgroundServices
       catch (AWTException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO em BackgroundServices.logAndChangeTooltip(String)");
-        Close.withErrors();
+        // Close.withErrors();
       }
     };
     EventQueue.invokeLater(runner);
@@ -216,7 +215,7 @@ public class BackgroundServices
     catch (InterruptedException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em BackgroundServices.logAndChangeTooltip(String)");
-      Close.withErrors();
+      // Close.withErrors();
     }
   }
 }

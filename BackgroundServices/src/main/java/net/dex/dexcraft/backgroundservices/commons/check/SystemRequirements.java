@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import static net.dex.dexcraft.backgroundservices.commons.Commons.alerts;
 import static net.dex.dexcraft.backgroundservices.commons.Commons.logger;
-import net.dex.dexcraft.backgroundservices.commons.dto.SessionDTO;
-import net.dex.dexcraft.backgroundservices.commons.dto.SystemDTO;
-import net.dex.dexcraft.backgroundservices.commons.tools.Connections;
-import net.dex.dexcraft.backgroundservices.commons.tools.DexCraftFiles;
 import org.apache.commons.io.IOUtils;
 
 
@@ -18,41 +14,6 @@ import org.apache.commons.io.IOUtils;
  */
 public class SystemRequirements
 {
-
-  /**
-   * Check if System match the minimum requirements.
-   */
-  public void checkRequirements()
-  {
-    SystemDTO.parseSystemAssets();
-    logger.log("INFO", "Coletando dados da quantidade de RAM no computador...");
-    logger.log("INFO", "O computador possui " + checkSystemRAMGB() + "GB de RAM instalados.");
-    long reqMin = Long.parseLong(SystemDTO.getReqsMinimumRAM());
-    long uploadMinSpd = Long.parseLong(SystemDTO.getMinimumMbpsUploadSpeed());
-    double reqMinD = (reqMin / 1000);
-    logger.log("INFO", "Coletando informações sobre o Sistema Operacional...");
-    if ((checkSystemRAMGB() < reqMinD) | (checkSystemArch().equals("x86")))
-    {
-      logger.log("***ERRO***", " O COMPUTADOR NÃO ATENDE AOS REQUISITOS MÍNIMOS DE HARDWARE E SOFTWARE \n"
-                + "(" + checkWindowsVersion() + checkSystemArch() + ", " + checkSystemRAMGB() + "GB RAM)");
-      alerts.noReq();
-    }
-    if (!SessionDTO.isConnectionTestDisabled())
-    {
-      Connections con = new Connections();
-      long speed = con.getNominalUploadSpeed(SystemDTO.getSpeedTestFileURL(), DexCraftFiles.downloadTestFile);
-      SessionDTO.setNominalUploadSpeed(Long.toString(speed));
-      if( speed < uploadMinSpd)
-      {
-        alerts.noSpd();
-        SessionDTO.setDisableDCBS(true);
-      }
-    }
-    else
-    {
-      SessionDTO.setDisableDCBS(true);
-    }
-  }
 
 
   /**

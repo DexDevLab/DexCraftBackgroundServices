@@ -59,7 +59,7 @@ public class FileIO
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FileIO.copiar(File, File)");
-          Close.withErrors();
+          // Close.withErrors();
         }
       }
       else
@@ -80,7 +80,7 @@ public class FileIO
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FileIO.copiar(File, File)");
-          Close.withErrors();
+          // Close.withErrors();
         }
       }
       else
@@ -93,7 +93,7 @@ public class FileIO
         catch (IOException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FileIO.copiar(File, File)");
-          Close.withErrors();
+          // Close.withErrors();
         }
       }
     }
@@ -279,7 +279,7 @@ public class FileIO
       if (result.get() == btnok)
       {
         fileIoErrorCode = 0;
-        Close.withErrors();
+        // Close.withErrors();
       }
       return null;
     }

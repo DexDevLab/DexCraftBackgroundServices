@@ -263,7 +263,8 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.connect()");
-      Close.withErrors();
+      disconnect();
+//      Close.withErrors();
     }
   }
 
@@ -283,7 +284,8 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.connect()");
-      Close.withErrors();
+      disconnect();
+//      Close.withErrors();
     }
   }
 
@@ -300,7 +302,8 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.connect()");
-      Close.withErrors();
+      disconnect();
+//      Close.withErrors();
     }
   }
 
@@ -323,7 +326,8 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.checkFolder(String)");
-      Close.withErrors();
+      disconnect();
+      // Close.withErrors();
     }
   }
 
@@ -346,6 +350,24 @@ public class FtpUtils
       logger.log("***ERRO***", "FTP: EXCEÇÃO em FtpUtils.fileExists(File)");
     }
     return false;
+  }
+
+  /**
+   * Renames a file or folder.
+   * @param from the name of the file to rename (absolute path)
+   * @param to the new name of the file (absolute path)
+   */
+  public void renameFile(String from, String to)
+  {
+    try
+    {
+      ftp.rename(from, to);
+    }
+    catch (IOException ex)
+    {
+      disconnect();
+      alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.checkFolder(String)");
+    }
   }
 
 
@@ -392,12 +414,14 @@ public class FtpUtils
     catch (FileNotFoundException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.uploadFile(String, String, String)");
-      Close.withErrors();
+      disconnect();
+      // Close.withErrors();
     }
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.uploadFile(String, String, String)");
-      Close.withErrors();
+      disconnect();
+      // Close.withErrors();
     }
     logger.log("***ERRO***", "FALHA CRÍTICA NO PROCESSO DE UPLOAD DO ARQUIVO " + localFilePath);
     alerts.tryAgain();
@@ -455,7 +479,8 @@ public class FtpUtils
       catch (InterruptedException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO em FtpUtils.uploadFileWithProgress(String, String)");
-        Close.withErrors();
+        disconnect();
+        // Close.withErrors();
       }
     }
     progress = 100;
@@ -489,7 +514,8 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO EM FtpUtils.downloadFile(String, File)");
-      Close.withErrors();
+      disconnect();
+      // Close.withErrors();
     }
     return false;
   }
@@ -546,7 +572,8 @@ public class FtpUtils
         catch (InterruptedException ex)
         {
           alerts.exceptionHandler(ex, "EXCEÇÃO EM FtpUtils.downloadFileWithProgress(String, File)");
-          Close.withErrors();
+          disconnect();
+          // Close.withErrors();
         }
       }
       progress = 100;
@@ -555,7 +582,8 @@ public class FtpUtils
     catch (IOException ex)
     {
       alerts.exceptionHandler(ex, "EXCEÇÃO EM FtpUtils.downloadFileWithProgress(String, File)");
-      Close.withErrors();
+      disconnect();
+      // Close.withErrors();
     }
   }
 

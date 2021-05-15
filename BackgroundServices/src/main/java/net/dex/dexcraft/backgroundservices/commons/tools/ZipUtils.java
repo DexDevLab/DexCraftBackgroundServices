@@ -104,7 +104,7 @@ public class ZipUtils
       catch (InterruptedException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO em ZipUtils.extractWithPassword(String, File, String)");
-        Close.withErrors();
+        // Close.withErrors();
       }
     }
     statusMessage = "Carregando perfil... " + totalFiles + " / " + totalFiles;

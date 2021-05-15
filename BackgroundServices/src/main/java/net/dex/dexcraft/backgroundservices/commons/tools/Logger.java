@@ -70,7 +70,7 @@ public class Logger
    * Get the log file.
    * @return the full path of the log file.
    */
-  private File getLogFile() { return this.logfile; }
+  public File getLogFile() { return this.logfile; }
 
   /**
    * Set the log folder where the logs will be stored.

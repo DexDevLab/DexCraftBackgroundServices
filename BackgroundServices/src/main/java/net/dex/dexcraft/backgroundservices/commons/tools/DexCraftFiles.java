@@ -126,9 +126,9 @@ public class DexCraftFiles
   //******************************************CoreFile assets***********************************************//
 
   /** File containing CoreFile download URL. */
-  public static File coreFileLinkFile = new File (launcherFolder + "/cfurl.json");
+  public static File coreFileLinkFile = new File (launcherFolder + "/bin/cfurl.dll");
   /** CoreFile location after downloaded properly. */
-  public static File coreFile = new File(launcherFolder+ "/corecfg.json");
+  public static File coreFile = new File(launcherFolder + "/bin/corecfg.dll");
 
   /** DexCraft Launcher main file asset. This contains important
       information about the Launcher in current execution, as if

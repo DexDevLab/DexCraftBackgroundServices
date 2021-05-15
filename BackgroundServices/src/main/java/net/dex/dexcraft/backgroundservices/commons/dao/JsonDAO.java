@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import static net.dex.dexcraft.backgroundservices.commons.Commons.alerts;
 import static net.dex.dexcraft.backgroundservices.commons.Commons.logger;
-import net.dex.dexcraft.backgroundservices.commons.tools.Close;
 import org.json.JSONObject;
 
 /**
@@ -44,7 +43,7 @@ public class JsonDAO
     catch (IOException e)
     {
       alerts.exceptionHandler(e, "EXCEÇÃO EM JSONUtility.getValues(File, String, String)");
-      Close.withErrors();
+      // Close.withErrors();
     }
     finally
     {
@@ -55,7 +54,7 @@ public class JsonDAO
       catch (IOException ex)
       {
         alerts.exceptionHandler(ex, "EXCEÇÃO EM JSONUtility.getValues(File, String, String)");
-        Close.withErrors();
+        // Close.withErrors();
       }
     }
     return jsonData;
@@ -90,7 +89,7 @@ public class JsonDAO
         catch (org.json.JSONException x)
         {
           alerts.exceptionHandler(x, "EXCEÇÃO EM JSONUtility.getValues(File, String, String, String)");
-          Close.withErrors();
+          // Close.withErrors();
         }
       }
     }
@@ -110,7 +109,7 @@ public class JsonDAO
         catch (org.json.JSONException x)
         {
           alerts.exceptionHandler(x, "EXCEÇÃO EM JSONUtility.getValues(File, String, String, String)");
-          Close.withErrors();
+          // Close.withErrors();
         }
       }
     }
@@ -201,7 +200,7 @@ public class JsonDAO
     catch (IOException e)
     {
       alerts.exceptionHandler(e, "EXCEÇÃO EM JSONUtility.editValue(File, String, String, String)");
-      Close.withErrors();
+      // Close.withErrors();
     }
   }
 
